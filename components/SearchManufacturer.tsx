@@ -1,12 +1,16 @@
+"use client";
+
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { useState, Fragment } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 
-import { manufacturers } from "@constants";
-import { SearchManuFacturerProps } from "@types";
+import { manufacturers } from "@/constants";
+import { SearchManufacturerProps } from "@/types";
 
 const SearchManufacturer = ({
-  manufacturer, setManuFacturer}: SearchManuFacturerProps) => {
+  manufacturer,
+  setManufacturer,
+}: SearchManufacturerProps) => {
   const [query, setQuery] = useState("");
 
   const filteredManufacturers =
@@ -21,9 +25,8 @@ const SearchManufacturer = ({
 
   return (
     <div className="search-manufacturer">
-      <Combobox value={manufacturer} onChange={setManuFacturer}>
+      <Combobox value={manufacturer} onChange={setManufacturer}>
         <div className="relative w-full">
-          {/* Button for the combobox. Click on the icon to see the complete dropdown */}
           <Combobox.Button className="absolute top-[14px]">
             <Image
               src="/car-logo.svg"
@@ -34,12 +37,11 @@ const SearchManufacturer = ({
             />
           </Combobox.Button>
 
-          {/*Search input field*/}
           <Combobox.Input
-            className="SearchManufacturer__input"
-            placeholder="Volkswagen"
+            className="search-manufacturer__input"
+            placeholder="Volkswagen..."
             displayValue={(manufacturer: string) => manufacturer}
-            onChange={(e) => SetQuery(e.target.value)}
+            onChange={(event) => setQuery(event.target.value)}
           />
 
           <Transition
@@ -47,16 +49,15 @@ const SearchManufacturer = ({
             leave="transition ease-in duration-100"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            afterLeave={() => SetQuery("")}
+            afterLeave={() => setQuery("")}
           >
-            <Combobox.List>
+            <Combobox.Options className="relative mt-1 max-h-60 w-full overflow-auto
+            rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black
+            ring-opacity-5 focus:outline-none sm:text-sm">
               {filteredManufacturers.length === 0 && query !== "" ? (
-                <Combobox.Option
-                  value={query}
-                  className="search-manufacturer__option"
-                >
-                  Create "{query}"
-                </Combobox.Option>
+                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                  Nothing found.
+                </div>
               ) : (
                 filteredManufacturers.map((item) => (
                   <Combobox.Option
@@ -68,11 +69,29 @@ const SearchManufacturer = ({
                     }
                     value={item}
                   >
-                    {item}
+                    {({selected, active}) => (
+                    <>
+                    <span
+                          className={`block truncate ${
+                            selected ? 'font-medium' : 'font-normal'
+                          }`}
+                        >
+                          {item}
+                        </span>
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? 'text-white' : 'text-teal-600'
+                            }`}
+                          >
+                          </span>
+                          ) : null}
+                    </>
+                    )}
                   </Combobox.Option>
                 ))
               )}
-            </Combobox.List>
+            </Combobox.Options>
           </Transition>
         </div>
       </Combobox>

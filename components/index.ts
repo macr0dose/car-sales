@@ -14,4 +14,4 @@ export {
     SearchBar,
     CustomFilter,
     SearchManufacturer,
-}
+};
