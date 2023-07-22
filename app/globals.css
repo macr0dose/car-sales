@@ -158,7 +158,8 @@
 
 /* START: Footer styles */
 .footer {
-  @apply flex flex-col text-black-100  mt-5 border-t border-gray-100;
+  @apply flex flex-col text-black-100  mt-5 border-t border-gray-100 relative;
+
 }
 
 .footer__links-container {
@@ -188,7 +189,7 @@
 
 /* START: searchbar styles */
 .searchbar {
-  @apply flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl;
+  @apply flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl z-50;
 }
 
 .searchbar__item {
