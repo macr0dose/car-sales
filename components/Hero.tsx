@@ -5,8 +5,8 @@ import CustomButton from './CustomButton';
 
 const Hero = () => {
   const handleScroll = () => {
-
-  }
+    document.getElementById("searchbar").scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="hero">
@@ -27,6 +27,7 @@ const Hero = () => {
         text-white rounded-full mt-10"
         handleClick={handleScroll}
       />
+        <div id="searchbar" className="searchbar"></div>
       </div>
       <div className="hero__image-container">
         <div className="hero__image">
